@@ -235,6 +235,7 @@ namespace MobileOneMedia.DevDeckStudio
             this.ForeColor = Color.FromArgb(220, 226, 247);
             this.Font = new Font("Segoe UI", 9.5f, FontStyle.Regular);
             this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.ShowInTaskbar = true;
 
             // Header Panel
             Panel pnlHeader = new Panel();
@@ -2627,7 +2628,11 @@ namespace MobileOneMedia.DevDeckStudio
         [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
         public const int SW_RESTORE = 9;
+        public const int SW_SHOW = 5;
 
         public static void EnsureTargetAppFocused()
         {
@@ -2687,23 +2692,31 @@ namespace MobileOneMedia.DevDeckStudio
                     try
                     {
                         Process current = Process.GetCurrentProcess();
-                        bool foundOther = false;
                         foreach (Process p in Process.GetProcesses())
                         {
                             if ((p.ProcessName.Equals("DevDeckStudio", StringComparison.OrdinalIgnoreCase) ||
                                 p.ProcessName.Equals("DevDeckReceiver", StringComparison.OrdinalIgnoreCase)) &&
                                 p.Id != current.Id)
                             {
-                                foundOther = true;
-                                if (p.MainWindowHandle != IntPtr.Zero)
+                                IntPtr hwnd = p.MainWindowHandle;
+                                if (hwnd == IntPtr.Zero)
                                 {
-                                    ShowWindow(p.MainWindowHandle, SW_RESTORE);
-                                    SetForegroundWindow(p.MainWindowHandle);
+                                    hwnd = FindWindow(null, "DevDeck Studio // Desktop Companion App v2.0");
                                 }
-                                return;
+
+                                if (hwnd != IntPtr.Zero)
+                                {
+                                    ShowWindow(hwnd, SW_RESTORE);
+                                    ShowWindow(hwnd, SW_SHOW);
+                                    SetForegroundWindow(hwnd);
+                                    return;
+                                }
+                                else
+                                {
+                                    try { p.Kill(); p.WaitForExit(1000); } catch { }
+                                }
                             }
                         }
-                        if (foundOther) return;
                     }
                     catch { }
                 }
