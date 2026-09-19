@@ -1662,6 +1662,15 @@ namespace MobileOneMedia.DevDeckStudio
             // Log directly to Live Keystroke Inspector HUD
             LogHUD(string.Format("DISPATCH -> [{0}]", action));
 
+            // 0. Profile Switch & System Navigation Events (DO NOT TYPE ON PC)
+            if (keyLower == "profile_switch" || keyLower.StartsWith("profile_switch") || keyLower.StartsWith("profile:") || keyLower.Contains("profile_switch"))
+            {
+                string prof = GetJsonString(jsonBody, "profile");
+                if (string.IsNullOrEmpty(prof)) prof = action;
+                LogHUD(string.Format("PROFILE EVENT -> [{0}] (No keystrokes sent)", prof.ToUpper()));
+                return "Profile Switched: " + prof;
+            }
+
             // Dynamic combo parser: e.g. "combo:ctrl+alt+t" or "key:f5"
             if (keyLower.StartsWith("combo:"))
             {
@@ -2184,10 +2193,11 @@ namespace MobileOneMedia.DevDeckStudio
                 return action;
             }
 
-            // Fallback 2: If the action looks like raw JSON, HTML, or unmapped bracket/character, DO NOT type it to PC
-            if (action.StartsWith("{") || action.Contains("\"action\"") || action.StartsWith("<") || action == ";" || action == ":")
+            // Fallback 2: If the action looks like raw JSON, HTML, internal event, or unmapped action, DO NOT type it to PC
+            if (action.StartsWith("{") || action.Contains("\"action\"") || action.StartsWith("<") || action == ";" || action == ":" ||
+                keyLower.Contains("switch") || keyLower.Contains("profile") || (action.Length > 2 && action.Equals(action.ToUpperInvariant()) && action.Contains("_")))
             {
-                LogHUD(string.Format("[IGNORED] Unmapped action or raw payload: {0}", action));
+                LogHUD(string.Format("[IGNORED] Internal action or raw payload: {0}", action));
                 return "Ignored: " + action;
             }
 

@@ -229,6 +229,11 @@ namespace DevDeckCompanion
                 return "Typed " + val.Length + " chars";
             }
 
+            if (action == "profile_switch" || action.StartsWith("profile"))
+            {
+                return "Profile Switched";
+            }
+
             return "OK";
         }
 
