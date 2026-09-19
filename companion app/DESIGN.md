@@ -141,13 +141,13 @@ spacing:
 
 ## Brand & Style
 
-This design system targets power users, systems engineers, and game-adjacent developers who demand ultra-performant, high-density tooling. The aesthetic merges the frozen, disciplined utility of Nordic minimalism with the visceral, high-tech pulse of cyberpunk terminal interfaces. 
+This design system targets power users, systems engineers, and game-adjacent developers who demand ultra-performant, high-density tooling. The aesthetic merges the frozen, disciplined utility of Nordic minimalism with the visceral, high-tech pulse of cyberpunk terminal interfaces.
 
 It rejects garish magenta/yellow retro-futurism in favor of sub-zero darkness: deep arctic night backgrounds, crystalline obsidian chassis panels, and razor-sharp bioluminescent accents in electric mint and cyber violet. The interface evokes precise instrumentation, hardware mastery, and high-velocity workflow orchestration. Glassmorphic layers, fine vector grids, and sub-pixel edge glows deliver tactile depth without sacrificing runtime performance or information density.
 
 ## Colors
 
-The foundation is anchored in `#0b0f19` (Void Abyss) as the overarching viewport canvas, supported by `#111827` (Obsidian Base) for surface enclosures and `#162032` for elevated controls. 
+The foundation is anchored in `#0b0f19` (Void Abyss) as the overarching viewport canvas, supported by `#111827` (Obsidian Base) for surface enclosures and `#162032` for elevated controls.
 
 - **Primary (`#7bedc4` - Electric Mint):** Reserved for primary interactive triggers, active states, and focal metrics. Emits a localized glow (`0 0 20px rgba(123, 237, 196, 0.35)`) on hover and active execution.
 - **Secondary (`#34d399` - Neon Emerald):** Conveys real-time telemetry, healthy telemetry loops, operational statuses, and live socket connectivity.
@@ -165,7 +165,7 @@ The type scale balances futuristic engineering poise with absolute legibility:
 
 ## Layout & Spacing
 
-The layout is built on a 12-column dynamic desktop grid capped at `80rem` (1280px) to maintain immediate visibility across widescreen monitors and companion displays. 
+The layout is built on a 12-column dynamic desktop grid capped at `80rem` (1280px) to maintain immediate visibility across widescreen monitors and companion displays.
 
 - **Grid & Gutters:** Desktop uses `gutter-desktop` (32px) gutters and outer padding. Mobile cascades down to a 4-column structure with `gutter-mobile` (16px) margins.
 - **Micro Rhythms:** Interior card layouts, data tables, and input docks are locked to an 8px base rhythm (`space-xs` = 4px for tight badge padding, `space-sm` = 8px for item separation, `space-md` = 16px for card gutters).

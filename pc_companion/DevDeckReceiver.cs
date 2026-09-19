@@ -1675,6 +1675,11 @@ namespace MobileOneMedia.DevDeckStudio
                 ParseAndSendCombo(kStr);
                 return kStr;
             }
+            if (keyLower.Length == 1 && !char.IsControl(keyLower[0]))
+            {
+                TypeStringVk(keyLower);
+                return "Typed single char: " + keyLower;
+            }
             if (keyLower.StartsWith("type:"))
             {
                 string tStr = action.Substring(5);
@@ -2414,7 +2419,7 @@ namespace MobileOneMedia.DevDeckStudio
                             // If keyword is "Skip", avoid "Skip navigation"
                             if (kw.Equals("Skip", StringComparison.OrdinalIgnoreCase))
                             {
-                                if ((name.Equals("Skip", StringComparison.OrdinalIgnoreCase) || 
+                                if ((name.Equals("Skip", StringComparison.OrdinalIgnoreCase) ||
                                      name.StartsWith("Skip ", StringComparison.OrdinalIgnoreCase)) &&
                                     name.IndexOf("navigation", StringComparison.OrdinalIgnoreCase) < 0)
                                 {
@@ -2752,4 +2757,3 @@ namespace MobileOneMedia.DevDeckStudio
         }
     }
 }
-

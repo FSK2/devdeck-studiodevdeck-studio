@@ -1,14 +1,14 @@
 # DevDeck - Technical Architecture & Bluetooth HID Implementation Guide
-**Target App:** DevDeck ($14.99 Android Macro Deck / Stream Deck App)  
-**Target Host OS:** Windows 11 (also compatible with macOS, iOS/iPadOS, Linux)  
-**Target Mobile OS:** Android 12 / 13 / 14 (Tested on OnePlus Nord N300 5G, Samsung Galaxy, Xiaomi)  
+**Target App:** DevDeck ($14.99 Android Macro Deck / Stream Deck App)
+**Target Host OS:** Windows 11 (also compatible with macOS, iOS/iPadOS, Linux)
+**Target Mobile OS:** Android 12 / 13 / 14 (Tested on OnePlus Nord N300 5G, Samsung Galaxy, Xiaomi)
 
 ---
 
 ## 1. Executive Summary & Root Cause Diagnosis
 
 ### The Issue
-When connecting an Android device (e.g., OnePlus Nord N300 on Android 12/13) to Windows 11 using Classic Bluetooth (`android.bluetooth.BluetoothHidDevice`), Windows negotiates the connection as a **Personal Area Network (PAN / BNEP)** and **A2DP Audio** device instead of an active **HID Keyboard**. 
+When connecting an Android device (e.g., OnePlus Nord N300 on Android 12/13) to Windows 11 using Classic Bluetooth (`android.bluetooth.BluetoothHidDevice`), Windows negotiates the connection as a **Personal Area Network (PAN / BNEP)** and **A2DP Audio** device instead of an active **HID Keyboard**.
 
 While Windows Device Manager may show `HID Keyboard Device` with status `OK`, the actual keystroke reports (`sendReport()`) fail to register or type characters because Windows routes traffic through the BNEP/PAN networking driver rather than standard L2CAP HID Control/Interrupt channels.
 
@@ -67,9 +67,9 @@ Below is the complete, production-ready Kotlin implementation of a **Pure BLE GA
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DevDeck">
-        
+
         <!-- Application Components -->
-        
+
     </application>
 </manifest>
 ```
@@ -85,7 +85,7 @@ object HidReportDescriptor {
 
     /**
      * Standard 8-byte HID Keyboard Report Descriptor
-     * 
+     *
      * Report Structure (8 Bytes total):
      * Byte 0: Modifier keys byte (Bit 0: LCtrl, Bit 1: LShift, Bit 2: LAlt, Bit 3: LGUI, Bit 4: RCtrl, Bit 5: RShift, Bit 6: RAlt, Bit 7: RGUI)
      * Byte 1: Reserved / OEM byte (Always 0x00)
@@ -342,7 +342,7 @@ class BleHidDeviceServer(private val context: Context) {
         val releaseReport = byteArrayOf(0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
 
         sendReport(pressReport)
-        
+
         // Small delay between press and release for OS registration
         android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
             sendReport(releaseReport)

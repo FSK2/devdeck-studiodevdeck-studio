@@ -100,7 +100,7 @@ def handle_youtube_action(action):
     """
     title = get_active_window_title()
     print(f"[*] YouTube Action '{action}' on window: '{title}'")
-    
+
     if action == "like":
         # In YouTube web, pressing '+' or Shift+Tab navigation or browser script
         send_key_combo([VK_SHIFT], 0xBB) # '+'

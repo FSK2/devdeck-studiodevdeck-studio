@@ -83,6 +83,7 @@ const server = http.createServer((req, res) => {
     });
 
     writeStream.on('error', (err) => {
+      writeStream.destroy();
       console.error('[DevDrop] File write error:', err);
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: err.message }));

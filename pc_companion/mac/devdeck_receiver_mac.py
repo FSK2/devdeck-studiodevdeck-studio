@@ -59,7 +59,7 @@ class DevDeckHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get('Content-Length', 0))
         body = self.rfile.read(length).decode('utf-8') if length > 0 else ""
-        
+
         try:
             req = json.loads(body) if body else {}
             action = req.get("action", body).lower().strip()

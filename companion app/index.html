@@ -109,11 +109,11 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
-    
+
     /* Hardware Tactile Keycap Shadow & Specular Styling */
     .tactile-keycap {
       background: linear-gradient(180deg, #23272f 0%, #1a1d23 100%);
-      box-shadow: 
+      box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.12),
         inset 0 -2px 0 rgba(0, 0, 0, 0.6),
         0 4px 6px -1px rgba(0, 0, 0, 0.6),
@@ -127,7 +127,7 @@
     }
     .tactile-keycap:active, .tactile-keycap.depressed {
       transform: translateY(2px);
-      box-shadow: 
+      box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.8),
         inset 0 0 10px rgba(6, 182, 212, 0.25),
         0 1px 2px rgba(0, 0, 0, 0.7);
@@ -137,7 +137,7 @@
     /* Destructive Keycap Styling */
     .tactile-keycap-danger {
       background: linear-gradient(180deg, #2b1d20 0%, #1c1315 100%);
-      box-shadow: 
+      box-shadow:
         inset 0 1px 0 rgba(255, 180, 171, 0.15),
         inset 0 -2px 0 rgba(0, 0, 0, 0.6),
         0 4px 6px -1px rgba(0, 0, 0, 0.6);
@@ -148,7 +148,7 @@
     }
     .tactile-keycap-danger:active, .tactile-keycap-danger.depressed {
       transform: translateY(2px);
-      box-shadow: 
+      box-shadow:
         inset 0 2px 4px rgba(0, 0, 0, 0.8),
         inset 0 0 10px rgba(255, 180, 171, 0.3),
         0 1px 2px rgba(0, 0, 0, 0.7);
@@ -310,7 +310,7 @@
         <span id="companion-pill-text">SEARCHING WI-FI...</span>
       </div>
       <!-- Clean Link to devdeck.carrd.co -->
-      <a href="https://devdeck.carrd.co/" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1 px-2.5 py-1 rounded-lg border text-[11px] font-bold font-mono transition-all bg-surface-container border-outline-variant text-primary hover:text-white active:scale-95 shadow-sm whitespace-nowrap" title="Download DevDeck Studio PC Companion">
+      <a href="javascript:void(0)" rel="noopener noreferrer" class="flex items-center space-x-1 px-2.5 py-1 rounded-lg border text-[11px] font-bold font-mono transition-all bg-surface-container border-outline-variant text-primary hover:text-white active:scale-95 shadow-sm whitespace-nowrap" title="Download DevDeck Studio PC Companion">
         <span class="material-symbols-outlined text-[14px]">desktop_windows</span>
         <span>PC APP</span>
       </a>
@@ -633,7 +633,7 @@
             </div>
           </div>
           <textarea id="live-syntax-sandbox" rows="2" oninput="updateSandboxCount()" placeholder="Tap syntax buttons above to compose code snippet on phone... Tap [SEND TO PC] to transmit!" class="w-full bg-surface-container-high text-cyan-300 font-mono text-xs p-2 rounded border border-outline-variant focus:border-cyan-400 focus:outline-none resize-none"></textarea>
-          
+
           <!-- Snippet Pills -->
           <div class="flex items-center gap-1 overflow-x-auto pb-1 text-[9px] font-mono text-slate-400">
             <span class="text-slate-500 text-[8.5px] uppercase tracking-wider flex-shrink-0">Snippets:</span>
@@ -1277,7 +1277,7 @@
       Keep <strong class="text-cyan-300">DevDeck Studio</strong> running on your PC. If it doesn't appear, check that both devices are on the same Wi-Fi.
     </p>
   </div>
-  <a href="https://devdeck.carrd.co/" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/60 text-cyan-300 font-mono text-[11px] font-bold transition-all shadow-md flex items-center gap-1.5">
+  <a href="javascript:void(0)" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/60 text-cyan-300 font-mono text-[11px] font-bold transition-all shadow-md flex items-center gap-1.5">
     <span class="material-symbols-outlined text-sm">download</span>
     <span>Kindly access devdeck.carrd.co to download the app on PC</span>
   </a>
@@ -1767,7 +1767,7 @@
         <p class="text-[11px] text-on-surface-variant font-mono">Download the standalone PC Companion at devdeck.carrd.co</p>
       </div>
     </div>
-    <a href="https://devdeck.carrd.co/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs shadow-lg active:scale-95 transition-all flex items-center gap-1.5 whitespace-nowrap">
+    <a href="javascript:void(0)" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs shadow-lg active:scale-95 transition-all flex items-center gap-1.5 whitespace-nowrap">
       <span class="material-symbols-outlined text-sm">download</span>
       <span>DOWNLOAD PC APP</span>
       <span>➔</span>
@@ -2478,7 +2478,7 @@
       else if (speedStr === '1.25') actionName = 'speed_125';
       else if (speedStr === '1.50' || speedStr === '1.5') actionName = 'speed_150';
       else if (speedStr === '2.00' || speedStr === '2.0' || speedStr === '2') actionName = 'speed_200';
-      
+
       speakFeedback(`Speed ${speedStr}x`);
       if (window.AndroidBridge && window.AndroidBridge.sendMacro) {
         window.AndroidBridge.sendMacro(actionName, currentOS || 'win');
@@ -2778,7 +2778,7 @@
         }
       } else if (typeof sendCompanionAction === 'function') {
         // Send to PC Companion Receiver for standalone web browser mode
-        sendCompanionAction(charToSend);
+        if (["{", "[", "(", "<", ";", ":", "=", "\"", "'", "`", ".", ",", "/", "?", "\\", "|", "-", "_", "+"].includes(charToSend)) { if (typeof sendCompanionText === "function") sendCompanionText(charToSend); } else { sendCompanionAction(charToSend); }
       }
 
       const displayKey = key === 'space' ? '␣ SPACE' : (key === 'backspace' ? '⌫ BKSP' : (key === 'enter' ? '↵ ENTER' : charToSend));
@@ -2998,7 +2998,7 @@
       }
     }
 
-    
+
     // --- L3 TRACKPAD & MOUSE ENGINE ---
     let trackpadDpi = 1.0;
     let lastTrackpadX = null;
@@ -3313,7 +3313,7 @@
     }
 
     // 24 MASTER PROFILES LOADED VIA profiles_data.js
-    
+
     let activeProfileId = 'creator_core';
 
     function filterProfiles(cat, btn) {
@@ -3763,9 +3763,9 @@
       if (input && input.value && input.value.trim()) {
         candidateSet.add(sanitizeIp(input.value.trim()));
       }
-      if (window.location.hostname && 
-          window.location.hostname !== 'localhost' && 
-          !window.location.hostname.endsWith('.web.app') && 
+      if (window.location.hostname &&
+          window.location.hostname !== 'localhost' &&
+          !window.location.hostname.endsWith('.web.app') &&
           !window.location.hostname.endsWith('.firebaseapp.com')) {
         candidateSet.add(window.location.hostname);
       }

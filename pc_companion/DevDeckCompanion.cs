@@ -169,15 +169,15 @@ namespace DevDeckCompanion
             if (action == "play" || action == "pause") { SendVk((byte)'K'); return "Play/Pause [K]"; }
             if (action == "stop") { SendVk(VK_MEDIA_STOP); return "Media Stop"; }
             if (action == "mute") { SendVk(VK_VOLUME_MUTE); return "Mute Toggled"; }
-            if (action == "volume_up" || action == "vol_step_up" || action == "vol_up") 
-            { 
-                for (int i = 0; i < 13; i++) SendVk(VK_VOLUME_UP, 8); 
-                return "Volume +25%"; 
+            if (action == "volume_up" || action == "vol_step_up" || action == "vol_up")
+            {
+                for (int i = 0; i < 13; i++) SendVk(VK_VOLUME_UP, 8);
+                return "Volume +25%";
             }
-            if (action == "volume_down" || action == "vol_step_down" || action == "vol_down") 
-            { 
-                for (int i = 0; i < 13; i++) SendVk(VK_VOLUME_DOWN, 8); 
-                return "Volume -25%"; 
+            if (action == "volume_down" || action == "vol_step_down" || action == "vol_down")
+            {
+                for (int i = 0; i < 13; i++) SendVk(VK_VOLUME_DOWN, 8);
+                return "Volume -25%";
             }
             if (action == "volume_zero" || action == "vol_zero")
             {
@@ -366,7 +366,7 @@ namespace DevDeckCompanion
                     {
                         var ips = GetLocalIPs();
                         string ipJson = "[\"" + string.Join("\",\"", ips.ToArray()) + "\"]";
-                        string statusJson = "{\"server\":\"DevDeck PC Companion\",\"version\":\"1.0\",\"status\":\"ONLINE\",\"active_window\":\"" + 
+                        string statusJson = "{\"server\":\"DevDeck PC Companion\",\"version\":\"1.0\",\"status\":\"ONLINE\",\"active_window\":\"" +
                                             GetActiveWindowTitle().Replace("\"", "\\\"") + "\",\"ips\":" + ipJson + "}";
                         byte[] bodyBytes = Encoding.UTF8.GetBytes(statusJson);
 

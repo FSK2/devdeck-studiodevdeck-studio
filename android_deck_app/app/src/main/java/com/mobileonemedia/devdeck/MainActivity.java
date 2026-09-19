@@ -179,6 +179,11 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FILE_CHOOSER_REQUEST_CODE) {
             if (mFilePathCallback == null) return;
+            if (resultCode != RESULT_OK || data == null) {
+                mFilePathCallback.onReceiveValue(null);
+                mFilePathCallback = null;
+                return;
+            }
             Uri[] results = null;
             if (resultCode == RESULT_OK && data != null) {
                 if (data.getClipData() != null) {
@@ -200,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         isDiscoveryRunning = false;
-        if (udpSocket != null) {
+        if (udpSocket != null && !udpSocket.isClosed()) {
             try { udpSocket.close(); } catch (Exception ignored) {}
         }
         if (bleHidServer != null) {
@@ -233,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 while (isDiscoveryRunning) {
                     try {
                         java.net.DatagramPacket packet = new java.net.DatagramPacket(buf, buf.length);
+                        if (udpSocket.isClosed()) break;
                         udpSocket.receive(packet);
                         String msg = new String(packet.getData(), 0, packet.getLength(), java.nio.charset.StandardCharsets.UTF_8);
                         String senderIp = packet.getAddress().getHostAddress();
