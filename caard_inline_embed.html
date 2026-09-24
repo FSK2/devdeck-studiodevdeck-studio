@@ -1,37 +1,16 @@
 <!-- ======================================================= -->
 <!-- DEVDECK STUDIO v2.0 // CAARD INLINE EMBED WIDGET       -->
-<!-- Paste directly into Caard: Add Element > Embed > Inline -->
+<!-- Paste directly into Carrd: Add Element > Embed > Inline -->
 <!-- ======================================================= -->
 
 <div id="devdeck-embed-wrapper">
   <div class="dd-card">
     
-    <!-- Top Header: Official Master Icon & Version Pill -->
+    <!-- Top Header: Official Mobile One Master Icon & Version Pill -->
     <div class="dd-header">
       <div class="dd-brand-lockup">
-        <!-- Official Master DevDeck Pro Icon (Embedded Vector) -->
-        <svg class="dd-master-icon" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="108" height="108" rx="26" fill="url(#dd_bg_grad)" stroke="#1e293b" stroke-width="2"/>
-          <!-- Blueprint Grid -->
-          <path d="M24 36H84 M24 54H84 M24 72H84 M36 24V84 M54 24V84 M72 24V84" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.15"/>
-          <!-- Corner Reticles -->
-          <path d="M26 34V26H34 M74 26H82V34 M26 74V82H34 M74 82H82V74" stroke="#68f0be" stroke-width="2.2" stroke-linecap="round"/>
-          <!-- Glowing Command ⌘ Glyph -->
-          <path d="M42 42V34C42 29.58 38.42 26 34 26C29.58 26 26 29.58 26 34C26 38.42 29.58 42 34 42H42ZM42 42H66M42 42V66M66 42V34C66 29.58 69.58 26 74 26C78.42 26 82 29.58 82 34C82 38.42 78.42 42 74 42H66ZM66 42V66M66 66V74C66 78.42 69.58 82 74 82C78.42 82 82 78.42 82 74C82 69.58 78.42 66 74 66H66ZM66 66H42M42 66V74C42 78.42 38.42 82 34 82C29.58 82 26 78.42 26 74C26 69.58 29.58 66 34 66H42Z" stroke="url(#dd_glyph_grad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 0 8px rgba(56,189,248,0.6))"/>
-          <!-- Emerald Live Connection Node -->
-          <circle cx="80" cy="28" r="4" fill="#34d399" filter="drop-shadow(0 0 4px #34d399)"/>
-          <defs>
-            <radialGradient id="dd_bg_grad" cx="50%" cy="50%" r="70%">
-              <stop offset="0%" stop-color="#0f172a"/>
-              <stop offset="60%" stop-color="#070d18"/>
-              <stop offset="100%" stop-color="#030710"/>
-            </radialGradient>
-            <linearGradient id="dd_glyph_grad" x1="26" y1="26" x2="82" y2="82" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#68f0be"/>
-              <stop offset="100%" stop-color="#38bdf8"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <!-- Official Master Mobile One Metallic Logo -->
+        <img src="https://raw.githubusercontent.com/FSK2/devdeck-studiodevdeck-studio/main/mobile_one_logo_1080x1080.png" class="dd-master-icon" alt="Mobile One Media Services">
         <div>
           <div class="dd-brand">Mobile One Media Services</div>
           <div class="dd-badge-mini">PRO &amp; FREEMIUM EDITION</div>
@@ -47,7 +26,7 @@
     <!-- Title & Value Proposition -->
     <h3 class="dd-title">DevDeck Studio</h3>
     <p class="dd-desc">
-      Universal 24-Key Tactile Controller for Windows PC &amp; Mac. Zero-latency Wi-Fi &amp; USB sync, Core Dev controls included free, and YouTube Studio &amp; Ad-Skip Pro matrix.
+      Universal 24-Key Tactile Controller &amp; Developer Stream Deck for Windows 10/11. Ultra-low latency 0.35ms Wi-Fi sync, DevDrop Wireless Asset Stream, Syntax Keypad, and DevDeck Pro with 24-Hour Free Trial.
     </p>
 
     <!-- Store Action Buttons (Official Store Links) -->
@@ -61,9 +40,9 @@
           <path fill="#ffb900" d="M13 13h10v10H13z"/>
         </svg>
         <div class="dd-btn-text">
-          <span class="dd-btn-eyebrow">GET IT FROM</span>
-          <span class="dd-btn-label">Microsoft Store</span>
-          <span class="dd-btn-sub">Windows 10 / 11 PC Companion</span>
+          <span class="dd-btn-eyebrow">MICROSOFT STORE</span>
+          <span class="dd-btn-label">PC Companion</span>
+          <span class="dd-btn-sub">Windows 10 / 11 (In Review)</span>
         </div>
       </a>
 
@@ -82,6 +61,24 @@
         </div>
       </a>
     </div>
+
+    <!-- Direct PC App Download Banner -->
+    <a href="https://raw.githubusercontent.com/FSK2/devdeck-studiodevdeck-studio/main/DevDeckStudio.exe" class="dd-direct-card" download id="dd-direct-pc-btn">
+      <div class="dd-direct-left">
+        <div class="dd-direct-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="dd-direct-icon">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="dd-direct-title">Download Windows PC Companion (.exe)</div>
+          <div class="dd-direct-desc">Direct standalone download • 1.94 MB • No installation required</div>
+        </div>
+      </div>
+      <div class="dd-direct-action">DOWNLOAD</div>
+    </a>
 
     <!-- Live Preview Interactive Section -->
     <div class="dd-preview-section">
@@ -106,14 +103,14 @@
         </button>
 
         <!-- 3. YouTube Save (PRO Gated) -->
-        <button type="button" class="dd-key dd-key-yt" onclick="ddSimulateKey('YouTube: Save to Playlist', 'yt_save', true)">
+        <button type="button" class="dd-key dd-key-yt" onclick="ddOpenProModal('YouTube Save to Playlist')">
           <div class="dd-k-top"><span>YT</span><span class="dd-k-sc">SAVE</span></div>
           <div class="dd-k-icon">💾</div>
           <div class="dd-k-name">SAVE LIST <span class="dd-pro-pill">PRO</span></div>
         </button>
 
         <!-- 4. YouTube Like (PRO Gated) -->
-        <button type="button" class="dd-key dd-key-yt" onclick="ddSimulateKey('YouTube: Like Video', 'yt_like', true)">
+        <button type="button" class="dd-key dd-key-yt" onclick="ddOpenProModal('YouTube Like Video')">
           <div class="dd-k-top"><span>YT</span><span class="dd-k-sc">LIKE</span></div>
           <div class="dd-k-icon">👍</div>
           <div class="dd-k-name">LIKE <span class="dd-pro-pill">PRO</span></div>
@@ -160,6 +157,34 @@
   </div>
 </div>
 
+<!-- DevDeck Pro Paywall Modal -->
+<div id="dd-pro-modal" class="dd-modal-backdrop" onclick="if(event.target===this) ddCloseProModal()">
+  <div class="dd-modal-box dd-pro-box">
+    <div class="dd-pro-header">
+      <div class="dd-pro-tier-pill">DEVDECK PRO [TIER]</div>
+      <button type="button" class="dd-modal-close" onclick="ddCloseProModal()">&times;</button>
+    </div>
+    <div class="dd-pro-body">
+      <div class="dd-pro-icon-spark">⚡</div>
+      <h3 class="dd-pro-title">UNLOCK FULL DEV POWER</h3>
+      <p class="dd-pro-sub">app developed by Mobile One Media Services</p>
+      
+      <div class="dd-pro-features">
+        <div class="dd-pro-f-item"><span>✔</span> Unlimited Macro Profiles &amp; Custom Decks</div>
+        <div class="dd-pro-f-item"><span>✔</span> Multi-Device Pairing (Simultaneous Windows &amp; Mac)</div>
+        <div class="dd-pro-f-item"><span>✔</span> Custom JSON Script Layouts &amp; Terminal Actions</div>
+        <div class="dd-pro-f-item"><span>✔</span> DevDrop Unlimited Wireless Asset Transfer Stream</div>
+        <div class="dd-pro-f-item"><span>✔</span> Server-Side Pro Licensing &amp; DirectInput Hooks</div>
+      </div>
+
+      <a href="https://play.google.com/store/apps/details?id=com.mobileonemedia.devdeck" target="_blank" rel="noopener" class="dd-pro-cta-btn">
+        START 24-HOUR FREE TRIAL ($9.99/MO)
+      </a>
+      <div class="dd-pro-trial-note">24-hour free trial, then $9.99/month. Cancel anytime in Google Play Store.</div>
+    </div>
+  </div>
+</div>
+
 <!-- Privacy Policy Interactive Modal -->
 <div id="dd-privacy-modal" class="dd-modal-backdrop" onclick="if(event.target===this) ddClosePrivacyModal()">
   <div class="dd-modal-box">
@@ -193,9 +218,8 @@
 
       <h4>5. Developer &amp; Corporate Inquiries</h4>
       <p>Mobile One Media Services<br>
-      Website: <a href="https://www.mobileonemedia.com" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:underline;">www.mobileonemedia.com</a><br>
       Support: <a href="mailto:info@mobileonemedia.com" style="color:#38bdf8;text-decoration:underline;">info@mobileonemedia.com</a><br>
-      Phone: +92 348 6567127</p>
+      Repository: <a href="https://github.com/FSK2/devdeck-studiodevdeck-studio" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:underline;">github.com/FSK2/devdeck-studiodevdeck-studio</a></p>
     </div>
     <div class="dd-modal-footer">
       <button type="button" class="dd-modal-btn" onclick="ddClosePrivacyModal()">Acknowledge &amp; Close</button>
@@ -237,10 +261,12 @@
 }
 
 .dd-master-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
+  object-fit: cover;
   flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 16px rgba(56, 189, 248, 0.25);
 }
 
@@ -303,14 +329,14 @@
   font-size: 13.5px;
   line-height: 1.55;
   color: #94a3b8;
-  margin: 0 0 22px;
+  margin: 0 0 20px;
 }
 
 .dd-btn-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 22px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 @media (max-width: 520px) {
@@ -321,7 +347,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: 12px;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -364,37 +390,100 @@
 .dd-btn-text {
   display: flex;
   flex-direction: column;
-  text-align: left;
 }
 
 .dd-btn-eyebrow {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #64748b;
   text-transform: uppercase;
-  color: #94a3b8;
-  line-height: 1;
-  margin-bottom: 2px;
 }
 
 .dd-btn-label {
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: 0.01em;
   color: #ffffff;
+  line-height: 1.2;
 }
 
 .dd-btn-sub {
-  font-size: 11px;
-  color: #64748b;
+  font-size: 10px;
+  color: #94a3b8;
   margin-top: 2px;
 }
 
+/* Direct Download Banner */
+.dd-direct-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px dashed rgba(56, 189, 248, 0.35);
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 22px;
+  transition: all 0.2s ease;
+}
+
+.dd-direct-card:hover {
+  background: rgba(14, 165, 233, 0.16);
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.dd-direct-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dd-direct-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dd-direct-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.dd-direct-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.dd-direct-desc {
+  font-size: 10.5px;
+  color: #94a3b8;
+}
+
+.dd-direct-action {
+  font-size: 11px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  letter-spacing: 0.04em;
+}
+
+/* Preview Section */
 .dd-preview-section {
-  background: rgba(15, 23, 42, 0.6);
+  background: #030712;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 18px;
+  padding: 16px;
+  margin-bottom: 18px;
 }
 
 .dd-preview-header {
@@ -403,25 +492,25 @@
   align-items: center;
   font-size: 11px;
   font-weight: 700;
-  color: #38bdf8;
-  letter-spacing: 0.08em;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
   margin-bottom: 14px;
 }
 
 .dd-tag {
   background: rgba(56, 189, 248, 0.15);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  font-size: 9px;
   padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 10px;
-  color: #7dd3fc;
+  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
 .dd-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 @media (max-width: 600px) {
@@ -429,33 +518,33 @@
 }
 
 .dd-key {
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: #0d1525;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  padding: 10px 6px;
-  color: #f8fafc;
-  cursor: pointer;
+  padding: 8px 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 82px;
-  transition: all 0.1s ease;
+  min-height: 74px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  user-select: none;
 }
 
 .dd-key:hover {
+  background: #14223d;
   border-color: #38bdf8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
 }
 
 .dd-key:active {
   transform: translateY(1px);
-  filter: brightness(1.2);
 }
 
 .dd-key-yt {
-  border-color: rgba(239, 68, 68, 0.35);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 .dd-key-yt:hover {
@@ -468,118 +557,146 @@
   display: flex;
   justify-content: space-between;
   font-size: 9px;
-  font-weight: 700;
   color: #64748b;
+  font-weight: 700;
 }
 
-.dd-k-sc { color: #38bdf8; font-weight: 800; }
-.dd-key-yt .dd-k-sc { color: #f87171; }
-.dd-k-icon { font-size: 18px; margin: 4px 0; }
-.dd-k-name { font-size: 10px; font-weight: 800; letter-spacing: 0.03em; display: flex; align-items: center; gap: 4px; }
+.dd-k-sc {
+  color: #38bdf8;
+}
+
+.dd-key-yt .dd-k-sc {
+  color: #f87171;
+}
+
+.dd-k-icon {
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+.dd-k-name {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
 
 .dd-pro-pill {
   font-size: 7.5px;
-  background: rgba(245, 158, 11, 0.25);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.5);
+  background: #f59e0b;
+  color: #000;
   padding: 1px 3px;
   border-radius: 3px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
+/* HUD Output */
 .dd-hud {
-  background: #000000;
-  border: 1px solid #1e293b;
-  border-radius: 8px;
-  padding: 10px 14px;
-  font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 11.5px;
-  color: #38bdf8;
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+  background: #020408;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: monospace;
+  font-size: 11px;
 }
 
-.dd-hud-prompt { color: #10b981; font-weight: 800; }
+.dd-hud-prompt {
+  color: #34d399;
+  font-weight: bold;
+}
 
-/* Compliance Footer & Privacy Modal Styling */
+#dd-hud-text {
+  color: #38bdf8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+/* Compliance Footer */
 .dd-compliance-bar {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(56, 189, 248, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
   font-size: 11px;
+  color: #64748b;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 14px;
 }
+
+@media (max-width: 520px) {
+  .dd-compliance-bar { flex-direction: column; gap: 8px; align-items: flex-start; }
+}
+
 .dd-compliance-tag {
   display: flex;
   align-items: center;
   gap: 6px;
   color: #94a3b8;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+
 .dd-shield-icon {
   width: 14px;
   height: 14px;
-  color: #38bdf8;
-  flex-shrink: 0;
+  color: #10b981;
 }
+
 .dd-compliance-links {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .dd-policy-link {
   color: #38bdf8;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.15s ease;
+  transition: color 0.15s;
 }
+
 .dd-policy-link:hover {
-  color: #68f0be;
   text-decoration: underline;
+  color: #7dd3fc;
 }
+
 .dd-sep {
   color: #475569;
 }
 
-/* Modal Backdrop & Dialog */
+/* Modal Shared Styles */
 .dd-modal-backdrop {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; width: 100vw; height: 100vh;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 99999;
+  z-index: 999999;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
+
 .dd-modal-backdrop.active {
   display: flex;
 }
+
 .dd-modal-box {
-  background: #0c1322;
+  background: #0b111e;
   border: 1px solid rgba(56, 189, 248, 0.35);
   border-radius: 16px;
+  max-width: 500px;
   width: 100%;
-  max-width: 580px;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(56, 189, 248, 0.12);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
   color: #cbd5e1;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: ddModalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-@keyframes ddModalIn {
-  from { opacity: 0; transform: scale(0.96) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
+
 .dd-modal-header {
   padding: 16px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -587,14 +704,16 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .dd-modal-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 15px;
+  gap: 8px;
   font-weight: 700;
-  color: #f1f5f9;
+  font-size: 15px;
+  color: #ffffff;
 }
+
 .dd-modal-close {
   background: transparent;
   border: none;
@@ -605,28 +724,34 @@
   padding: 4px;
   transition: color 0.15s;
 }
+
 .dd-modal-close:hover { color: #ffffff; }
+
 .dd-modal-body {
   padding: 20px;
   overflow-y: auto;
   font-size: 12.5px;
   line-height: 1.6;
 }
+
 .dd-modal-body h4 {
   color: #68f0be;
   font-size: 13px;
   margin: 16px 0 6px 0;
   font-weight: 700;
 }
+
 .dd-modal-body p {
   margin: 0 0 10px 0;
 }
+
 .dd-p-lead {
   color: #94a3b8;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding-bottom: 8px;
   margin-bottom: 14px !important;
 }
+
 .dd-modal-body code {
   background: #172136;
   color: #38bdf8;
@@ -635,12 +760,14 @@
   font-size: 11.5px;
   font-family: monospace;
 }
+
 .dd-modal-footer {
   padding: 14px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: flex-end;
 }
+
 .dd-modal-btn {
   background: #0284c7;
   color: #ffffff;
@@ -652,8 +779,110 @@
   cursor: pointer;
   transition: background 0.15s;
 }
+
 .dd-modal-btn:hover {
   background: #0369a1;
+}
+
+/* Pro Modal Custom Styles */
+.dd-pro-box {
+  background: linear-gradient(160deg, #0d1527 0%, #060a12 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 25px 60px -15px rgba(245, 158, 11, 0.25);
+  text-align: center;
+}
+
+.dd-pro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dd-pro-tier-pill {
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.dd-pro-body {
+  padding: 24px 20px;
+}
+
+.dd-pro-icon-spark {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.dd-pro-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.dd-pro-sub {
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin: 0 0 18px;
+}
+
+.dd-pro-features {
+  text-align: left;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.dd-pro-f-item {
+  font-size: 12px;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dd-pro-f-item:last-child { margin-bottom: 0; }
+
+.dd-pro-f-item span {
+  color: #34d399;
+  font-weight: bold;
+}
+
+.dd-pro-cta-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #000000;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 13.5px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+}
+
+.dd-pro-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+}
+
+.dd-pro-trial-note {
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-top: 10px;
 }
 </style>
 
@@ -662,16 +891,16 @@ function ddSimulateKey(name, act, isPro) {
   const hud = document.getElementById('dd-hud-text');
   if (hud) {
     if (isPro) {
-      hud.textContent = `DISPATCH -> [${name}] (PRO TIER) executed via Port 8989 (0.38ms HID pipe)`;
+      hud.textContent = `PRO FEATURE -> [${name}] requires DevDeck Pro license.`;
       hud.style.color = '#f59e0b';
     } else {
-      hud.textContent = `DISPATCH -> [${name}] executed via Port 8989 (0.38ms HID pipe)`;
+      hud.textContent = `DISPATCH -> [${name}] executed via Port 8989 (0.35ms HID pipe)`;
       hud.style.color = '#34d399';
     }
     setTimeout(() => { hud.style.color = '#38bdf8'; }, 800);
   }
   
-  // Ping local PC receiver if open in same network
+  // Ping local PC receiver if running on same network
   try {
     fetch('http://localhost:8989/api/action', {
       method: 'POST',
@@ -680,6 +909,21 @@ function ddSimulateKey(name, act, isPro) {
       mode: 'cors'
     }).catch(() => {});
   } catch(e) {}
+}
+
+function ddOpenProModal(featureName) {
+  const modal = document.getElementById('dd-pro-modal');
+  if (modal) modal.classList.add('active');
+  const hud = document.getElementById('dd-hud-text');
+  if (hud) {
+    hud.textContent = `PRO DIALOG OPENED: [${featureName || 'Pro Action'}]`;
+    hud.style.color = '#f59e0b';
+  }
+}
+
+function ddCloseProModal() {
+  const modal = document.getElementById('dd-pro-modal');
+  if (modal) modal.classList.remove('active');
 }
 
 function ddOpenPrivacyModal(e) {
