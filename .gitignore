@@ -1,4 +1,4 @@
-﻿# Gradle & Android Build caches
+# Gradle & Android Build caches
 android_deck_app/.gradle/
 android_deck_app/build/
 android_deck_app/app/build/
@@ -22,3 +22,9 @@ NW SCREENS/
 *.log
 scratch/
 temp_check*
+
+# Android Release Bundles & Signing Keys (Proprietary - Play Store Only)
+*.aab
+*.jks
+*.keystore
+release_backups_local/

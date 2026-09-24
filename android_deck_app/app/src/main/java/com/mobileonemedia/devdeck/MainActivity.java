@@ -30,6 +30,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 import android.speech.tts.TextToSpeech;
+import android.app.DownloadManager;
+import android.os.Environment;
+import android.webkit.URLUtil;
+import android.webkit.DownloadListener;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -456,9 +460,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        webView.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                String fileName = null;
+                if (contentDisposition != null) {
+                    try {
+                        fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                    } catch (Exception ignored) {}
+                }
+                downloadFileFromPcNative(url, fileName);
+            }
+        });
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && url.contains("/api/download")) {
+                    downloadFileFromPcNative(url, null);
+                    return true;
+                }
                 if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("market://")) {
                     try {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -473,6 +494,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, android.webkit.WebResourceRequest request) {
                 if (request != null && request.getUrl() != null) {
                     String url = request.getUrl().toString();
+                    if (url.contains("/api/download")) {
+                        downloadFileFromPcNative(url, null);
+                        return true;
+                    }
                     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("market://")) {
                         try {
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -521,6 +546,38 @@ public class MainActivity extends AppCompatActivity {
             if (tab != null && !tab.isEmpty() && webView != null) {
                 webView.post(() -> webView.evaluateJavascript("if(window.switchTab){window.switchTab('" + tab + "');}", null));
             }
+        }
+    }
+
+    public void downloadFileFromPcNative(String url, String fileName) {
+        try {
+            if (url == null || url.isEmpty()) return;
+            if (fileName == null || fileName.isEmpty()) {
+                Uri parsedUri = Uri.parse(url);
+                fileName = parsedUri.getQueryParameter("file");
+                if (fileName == null || fileName.isEmpty()) {
+                    fileName = parsedUri.getLastPathSegment();
+                }
+                if (fileName == null || fileName.isEmpty()) {
+                    fileName = "devdeck_download_" + System.currentTimeMillis();
+                }
+            }
+
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setTitle("DevDrop: " + fileName);
+            request.setDescription("Streaming file from DevDeck PC Companion");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+
+            DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+            if (dm != null) {
+                dm.enqueue(request);
+                String finalName = fileName;
+                runOnUiThread(() -> Toast.makeText(this, "DevDrop: Downloading " + finalName + " to Downloads", Toast.LENGTH_SHORT).show());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error enqueuing download: " + e.getMessage(), e);
+            runOnUiThread(() -> Toast.makeText(this, "Download error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         }
     }
 
@@ -906,6 +963,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class WebAppInterface {
+        @JavascriptInterface
+        public void downloadFileFromPc(String url, String fileName) {
+            downloadFileFromPcNative(url, fileName);
+        }
+
         @JavascriptInterface
         public void sendMouseMove(int dx, int dy) {
             if (hidManager != null && hidManager.isConnected()) {

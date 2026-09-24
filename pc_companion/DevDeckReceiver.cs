@@ -223,6 +223,13 @@ namespace MobileOneMedia.DevDeckStudio
             StartHttpServer();
             StartUdpBeacon();
             StartAdbSupervisor();
+
+            this.Load += (s, e) => {
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
+                this.Hide();
+                LaunchStudioWindow();
+            };
         }
 
         private void InitializeComponent()
@@ -237,6 +244,12 @@ namespace MobileOneMedia.DevDeckStudio
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.ShowInTaskbar = true;
 
+            Icon studioIcon = GetStudioIcon();
+            if (studioIcon != null)
+            {
+                try { this.Icon = studioIcon; } catch { }
+            }
+
             // Header Panel
             Panel pnlHeader = new Panel();
             pnlHeader.Dock = DockStyle.Top;
@@ -244,18 +257,28 @@ namespace MobileOneMedia.DevDeckStudio
             pnlHeader.BackColor = Color.FromArgb(17, 24, 39); // #111827
             pnlHeader.Padding = new Padding(16, 10, 16, 10);
 
+            PictureBox picHeaderLogo = new PictureBox();
+            picHeaderLogo.Size = new Size(42, 42);
+            picHeaderLogo.Location = new Point(16, 11);
+            picHeaderLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            if (studioIcon != null)
+            {
+                try { picHeaderLogo.Image = studioIcon.ToBitmap(); } catch { }
+            }
+            pnlHeader.Controls.Add(picHeaderLogo);
+
             lblHeaderTitle = new Label();
             lblHeaderTitle.Text = "DEVDECK STUDIO // COMPANION";
             lblHeaderTitle.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
             lblHeaderTitle.ForeColor = Color.FromArgb(123, 237, 196); // #7bedc4 Electric Mint
-            lblHeaderTitle.Location = new Point(16, 10);
+            lblHeaderTitle.Location = new Point(68, 10);
             lblHeaderTitle.AutoSize = true;
 
             lblHeaderSubtitle = new Label();
             lblHeaderSubtitle.Text = "Universal Control Hub • Zero-Drop Socket Engine • v2.0 [x64-Native]";
             lblHeaderSubtitle.Font = new Font("Segoe UI", 8.5f, FontStyle.Regular);
             lblHeaderSubtitle.ForeColor = Color.FromArgb(156, 163, 175);
-            lblHeaderSubtitle.Location = new Point(16, 34);
+            lblHeaderSubtitle.Location = new Point(68, 34);
             lblHeaderSubtitle.AutoSize = true;
 
             lblDirectInputBadge = new Label();
@@ -718,33 +741,59 @@ namespace MobileOneMedia.DevDeckStudio
 
             // System Tray NotifyIcon
             trayMenu = new ContextMenuStrip();
-            trayMenu.Items.Add("Open DevDeck Studio", null, (s, e) => RestoreFromTray());
+            trayMenu.Items.Add("Open DevDeck Studio (Modern)", null, (s, e) => LaunchStudioWindow());
+            trayMenu.Items.Add("Diagnostics Console (Legacy)", null, (s, e) => RestoreFromTray());
             trayMenu.Items.Add("Clear Log HUD", null, (s, e) => txtLogFeed.Clear());
             trayMenu.Items.Add("-");
-            trayMenu.Items.Add("Exit DevDeck", null, (s, e) => ExitApplication());
+            trayMenu.Items.Add("Exit DevDeck Studio", null, (s, e) => ExitApplication());
 
             trayIcon = new NotifyIcon();
             trayIcon.Text = "DevDeck Studio // Mobile One Media Services";
 
-            Icon studioIcon = null;
+            if (studioIcon == null)
+            {
+                studioIcon = GetStudioIcon();
+            }
+
+            trayIcon.Icon = studioIcon;
+            trayIcon.ContextMenuStrip = trayMenu;
+            trayIcon.Visible = true;
+            trayIcon.DoubleClick += (s, e) => LaunchStudioWindow();
+
+            this.FormClosing += (s, e) => {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    e.Cancel = true;
+                    MinimizeToTray();
+                }
+            };
+
+            RefreshIpDiagnostics();
+            LogHUD("DevDeck Studio Engine initialized. Listening on Port 8989.");
+            LogHUD("Wired USB (Tethering / ADB) and Wi-Fi networks active.");
+        }
+
+        private Icon GetStudioIcon()
+        {
+            Icon icon = null;
             try
             {
-                studioIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+                icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             }
             catch { }
 
-            if (studioIcon == null)
+            if (icon == null)
             {
                 try
                 {
                     string localIco = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "app.ico");
                     if (File.Exists(localIco))
                     {
-                        studioIcon = new Icon(localIco);
+                        icon = new Icon(localIco);
                     }
                     else if (File.Exists("app.ico"))
                     {
-                        studioIcon = new Icon("app.ico");
+                        icon = new Icon("app.ico");
                     }
                     else
                     {
@@ -769,31 +818,13 @@ namespace MobileOneMedia.DevDeckStudio
                                     g.DrawString("⌘", f, textBrush, new RectangleF(0, 0, 32, 32), sf);
                                 }
                             }
-                            studioIcon = Icon.FromHandle(bmp.GetHicon());
+                            icon = Icon.FromHandle(bmp.GetHicon());
                         }
                     }
                 }
-                catch { studioIcon = SystemIcons.Application; }
+                catch { icon = SystemIcons.Application; }
             }
-
-            trayIcon.Icon = studioIcon;
-            trayIcon.ContextMenuStrip = trayMenu;
-            trayIcon.Visible = true;
-            trayIcon.DoubleClick += (s, e) => RestoreFromTray();
-
-            try { this.Icon = studioIcon; } catch { }
-
-            this.FormClosing += (s, e) => {
-                if (e.CloseReason == CloseReason.UserClosing)
-                {
-                    e.Cancel = true;
-                    MinimizeToTray();
-                }
-            };
-
-            RefreshIpDiagnostics();
-            LogHUD("DevDeck Studio Engine initialized. Listening on Port 8989.");
-            LogHUD("Wired USB (Tethering / ADB) and Wi-Fi networks active.");
+            return icon;
         }
 
         private void InitializeTelemetry()
@@ -1129,7 +1160,7 @@ namespace MobileOneMedia.DevDeckStudio
                             try { tcpListener.Stop(); } catch { }
                         }
                         tcpListener = new TcpListener(IPAddress.Any, listenPort);
-                        tcpListener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ExclusiveAddressUse, false);
+                        tcpListener.ExclusiveAddressUse = false;
                         tcpListener.Server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
                         tcpListener.Start();
 
@@ -1319,27 +1350,73 @@ namespace MobileOneMedia.DevDeckStudio
                         string activeWin = GetActiveWindowTitle();
 
                         responseJson = string.Format(
-                            "{{\"status\":\"ok\",\"version\":\"2.0\",\"hostname\":\"{0}\",\"cpu\":{1:0},\"activeApp\":\"{2}\",\"clientDevice\":\"{3}\",\"actionsTotal\":{4}}}",
+                            "{{\"status\":\"ok\",\"version\":\"2.0\",\"hostname\":\"{0}\",\"cpu\":{1:0},\"activeApp\":\"{2}\",\"clientDevice\":\"{3}\",\"actionsTotal\":{4},\"isPro\":{5},\"tier\":\"{6}\"}}",
                             Environment.MachineName.Replace("\"", "'"),
                             cpuVal,
                             activeWin.Replace("\\", "\\\\").Replace("\"", "'"),
                             currentDeviceModel.Replace("\"", "'"),
-                            totalActionsReceived
+                            totalActionsReceived,
+                            IsProLicensed ? "true" : "false",
+                            IsProLicensed ? "pro" : "free"
                         );
                     }
                     else if (path.StartsWith("/api/action") && method == "POST")
                     {
-                        totalActionsReceived++;
-                        var sw = Stopwatch.StartNew();
-                        string actionResult = ExecuteMacroAction(body);
-                        sw.Stop();
+                        string requestedAction = GetJsonString(body, "action");
+                        if (string.IsNullOrEmpty(requestedAction)) requestedAction = body.Trim();
 
-                        responseJson = string.Format("{{\"success\":true,\"result\":\"{0}\",\"latencyMs\":{1:0.00}}}", actionResult, sw.Elapsed.TotalMilliseconds);
+                        bool clientHasPro = GetJsonString(body, "isPro") == "true" ||
+                                            GetJsonString(body, "license") == "DEVDECK-PRO-2026" ||
+                                            GetJsonString(body, "license") == "PRO-MONTHLY" ||
+                                            GetJsonString(body, "license") == "MOBILEONE-VIP" ||
+                                            GetJsonString(body, "license") == "TESTER-PRO";
+
+                        if (!IsProLicensed && !clientHasPro && IsPaidAction(requestedAction))
+                        {
+                            LogHUD(string.Format("[SERVER GATE] BLOCKED -> [{0}] (DevDeck Pro License Required)", requestedAction));
+                            responseJson = "{\"success\":false,\"error\":\"PRO_REQUIRED\",\"message\":\"DevDeck Pro License required for this feature.\"}";
+                        }
+                        else
+                        {
+                            totalActionsReceived++;
+                            var sw = Stopwatch.StartNew();
+                            string actionResult = ExecuteMacroAction(body);
+                            sw.Stop();
+
+                            responseJson = string.Format("{{\"success\":true,\"result\":\"{0}\",\"latencyMs\":{1:0.00}}}", actionResult, sw.Elapsed.TotalMilliseconds);
+                        }
+                    }
+                    else if (path.StartsWith("/api/license") && method == "POST")
+                    {
+                        string code = GetJsonString(body, "code").ToUpper().Trim();
+                        if (code == "DEVDECK-PRO-2026" || code == "PRO-MONTHLY" || code == "MOBILEONE-VIP" || code == "TESTER-PRO")
+                        {
+                            IsProLicensed = true;
+                            LogHUD(string.Format("[LICENSE] DevDeck PRO Unlocked via Code: {0}", code));
+                            responseJson = "{\"success\":true,\"isPro\":true,\"message\":\"DevDeck Studio PRO Activated!\"}";
+                        }
+                        else
+                        {
+                            responseJson = "{\"success\":false,\"isPro\":false,\"message\":\"Invalid license code.\"}";
+                        }
                     }
                     else if (path.StartsWith("/api/mouse") && method == "POST")
                     {
-                        ExecuteMouseAction(body);
-                        responseJson = "{\"success\":true,\"type\":\"mouse_event\"}";
+                        bool clientHasPro = GetJsonString(body, "isPro") == "true" ||
+                                            GetJsonString(body, "license") == "DEVDECK-PRO-2026" ||
+                                            GetJsonString(body, "license") == "PRO-MONTHLY" ||
+                                            GetJsonString(body, "license") == "MOBILEONE-VIP" ||
+                                            GetJsonString(body, "license") == "TESTER-PRO";
+
+                        if (!IsProLicensed && !clientHasPro)
+                        {
+                            responseJson = "{\"success\":false,\"error\":\"PRO_REQUIRED\",\"message\":\"DevDeck Pro Trackpad requires Pro.\"}";
+                        }
+                        else
+                        {
+                            ExecuteMouseAction(body);
+                            responseJson = "{\"success\":true,\"type\":\"mouse_event\"}";
+                        }
                     }
                     else if (path.StartsWith("/api/text") && method == "POST")
                     {
@@ -1492,7 +1569,32 @@ namespace MobileOneMedia.DevDeckStudio
                     }
 
 
-                    if (method == "GET" && (path == "/" || path == "/index.html" || path == "/deck" || path == "/deck.html"))
+                    else if (path.StartsWith("/api/minimize") && method == "POST")
+                    {
+                        MinimizeStudioWindow();
+                        responseJson = "{\"success\":true,\"minimized\":true}";
+                    }
+
+                    if (path.EndsWith("/favicon.png", StringComparison.OrdinalIgnoreCase) || path.EndsWith("/favicon.ico", StringComparison.OrdinalIgnoreCase))
+                    {
+                        contentType = "image/png";
+                        bodyBytes = StudioAsset.GetFaviconBytes();
+                    }
+                    else if (method == "GET" && (path == "/" || path == "/index.html" || path == "/studio" || path == "/studio.html"))
+                    {
+                        string studioFile = FindStudioFile();
+                        if (!string.IsNullOrEmpty(studioFile) && File.Exists(studioFile))
+                        {
+                            contentType = "text/html; charset=utf-8";
+                            bodyBytes = File.ReadAllBytes(studioFile);
+                        }
+                        else
+                        {
+                            contentType = "text/html; charset=utf-8";
+                            bodyBytes = StudioAsset.GetStudioHtmlBytes();
+                        }
+                    }
+                    else if (method == "GET" && (path == "/deck" || path == "/deck.html"))
                     {
                         string htmlFile = FindWebDeckFile();
                         if (!string.IsNullOrEmpty(htmlFile) && File.Exists(htmlFile))
@@ -1627,6 +1729,35 @@ namespace MobileOneMedia.DevDeckStudio
             }
             catch { }
             return "";
+        }
+
+        // ==========================================
+        // SERVER-SIDE PRO LICENSE & FREEMIUM ENGINE
+        // ==========================================
+        public static bool IsProLicensed = false;
+
+        public static bool IsPaidAction(string action)
+        {
+            if (string.IsNullOrEmpty(action)) return false;
+            string a = action.ToLower().Trim();
+            // Free actions: basic typing and default 24 tactile matrix controls
+            if (a == "undo" || a == "redo" || a == "cut" || a == "copy" || a == "paste" ||
+                a == "save" || a == "search" || a == "settings" || a == "snip" || a == "desktop" ||
+                a == "task_mgr" || a == "find" || a == "bold" || a == "italic" || a == "underline" ||
+                a == "comment" || a == "new_tab" || a == "close_tab" || a == "reopen" || a == "refresh" ||
+                a == "history" || a == "dev_tools" || a == "force_kill" || a == "vol_up" || a == "vol_down" ||
+                a == "mute" || a == "play_pause" || a == "next" || a == "prev" || a == "profile:creator_core")
+            {
+                return false;
+            }
+            // All YouTube automation, special profile matrices, and custom macros are PAID
+            if (a.StartsWith("yt_") || a.StartsWith("youtube") || a.Contains("skip_ad") || a.Contains("ad_skip") ||
+                a.Contains("speed") || a.Contains("replay_") || a.Contains("seek_") || a == "like" || a == "share" ||
+                a.StartsWith("profile_") || a.StartsWith("profile:"))
+            {
+                return true;
+            }
+            return false;
         }
 
         // ==========================================
@@ -2649,6 +2780,79 @@ namespace MobileOneMedia.DevDeckStudio
                 }
             }
             catch { }
+        }
+
+        private static Process studioProcess = null;
+
+        public static void LaunchStudioWindow()
+        {
+            try
+            {
+                if (studioProcess != null && !studioProcess.HasExited)
+                {
+                    IntPtr hwnd = studioProcess.MainWindowHandle;
+                    if (hwnd != IntPtr.Zero)
+                    {
+                        ShowWindow(hwnd, SW_RESTORE);
+                        ShowWindow(hwnd, SW_SHOW);
+                        SetForegroundWindow(hwnd);
+                        return;
+                    }
+                }
+
+                string edgePath = null;
+                string[] candidates = new string[] {
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"Microsoft\Edge\Application\msedge.exe"),
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), @"Microsoft\Edge\Application\msedge.exe"),
+                    @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+                    @"C:\Program Files\Microsoft\Edge\Application\msedge.exe"
+                };
+                foreach (var p in candidates)
+                {
+                    if (File.Exists(p)) { edgePath = p; break; }
+                }
+                if (string.IsNullOrEmpty(edgePath)) edgePath = "msedge.exe";
+
+                string args = "--app=http://127.0.0.1:8989/ --window-size=1280,860";
+                studioProcess = Process.Start(new ProcessStartInfo(edgePath, args) { UseShellExecute = true });
+            }
+            catch
+            {
+                try { Process.Start(new ProcessStartInfo("http://127.0.0.1:8989/") { UseShellExecute = true }); } catch { }
+            }
+        }
+
+        public static void MinimizeStudioWindow()
+        {
+            try
+            {
+                if (studioProcess != null && !studioProcess.HasExited)
+                {
+                    IntPtr hwnd = studioProcess.MainWindowHandle;
+                    if (hwnd != IntPtr.Zero)
+                    {
+                        ShowWindow(hwnd, 6); // SW_MINIMIZE = 6
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private static string FindStudioFile()
+        {
+            string[] candidates = new string[] {
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "studio.html"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "code.html"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\pc_companion\\studio.html"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\companion app\\studio.html"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\logitec\\extracted\\code.html"),
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Documents\google playstore\developer keyboard\pc_companion\studio.html")
+            };
+            foreach (var c in candidates)
+            {
+                try { if (File.Exists(c)) return Path.GetFullPath(c); } catch { }
+            }
+            return null;
         }
 
         private static string FindWebDeckFile()
